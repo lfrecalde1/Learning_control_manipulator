@@ -4,7 +4,8 @@ clc, clear all, close all;
 
 % Load Data of the system
 load("Data_Learning.mat")
-
+qd = Hd;
+t = t_aux;
 % Change dimentions in the variables
 q = q(:, 1:end-1);
 
@@ -46,7 +47,7 @@ xd22 =  l2*sin(qd(1, aux_time_2)+qd(2, aux_time_2)) + l1*sin(qd(1, aux_time_2));
 yd22 = -l2*cos(qd(1, aux_time_2)+qd(2, aux_time_2)) - l1*cos(qd(1, aux_time_2));
 
 % Real values t =10
-aux_time_3 = (t >= 10) & (t<10.005);
+aux_time_3 = (t >= 29) & (t<29.005);
 
 x31 = l1*sin(q(1,aux_time_3));
 y31 = -l1*cos(q(1,aux_time_3));
@@ -60,6 +61,9 @@ yd31 = -l1*cos(qd(1,aux_time_3));
 xd32 =  l2*sin(qd(1, aux_time_3)+qd(2, aux_time_3)) + l1*sin(qd(1, aux_time_3));
 yd32 = -l2*cos(qd(1, aux_time_3)+qd(2, aux_time_3)) - l1*cos(qd(1, aux_time_3));
 
+
+% Aux time 
+t_aux_torque = (t >= 10) & (t < 40);
 
 % Colors and size of the letters
 lw = 1.5; % linewidth 1
@@ -76,6 +80,7 @@ c1 = [80, 81, 79]/255;
 c2 = [244, 213, 141]/255;
 c3 = [242, 95, 92]/255;
 c4 = [112, 141, 129]/255;
+c5 = [ 254, 217, 217]/255;
 
 C18 = [0 0 0];
 
@@ -211,7 +216,7 @@ set(l_2_real_t_60, 'LineStyle', '-', 'Color', c3, 'LineWidth', lw*1.5)
 
 
 %% Title of the image
-hTitle_ = title({'$t = 10[s]$'},'fontsize',14,'interpreter','latex','Color',C18);
+hTitle_ = title({'$t = 25[s]$'},'fontsize',14,'interpreter','latex','Color',C18);
 hXLabel_3 = xlabel('$x[m]$','fontsize',10,'interpreter','latex', 'Color',C18);
 %hYLabel_3 = ylabel('$y[m]$','fontsize',10,'interpreter','latex', 'Color',C18);
 
@@ -237,13 +242,17 @@ ax_3.YLim = [-2.1 2.1];
 
 %hold on;
 axes('Position',[0.1 0.30 .72 .21]);
+% Aux time
+hightlighting = t(t_aux_torque);
+number_faces = [1 2 3 4];
+vertices = [hightlighting(1) -2; hightlighting(1) 2; hightlighting(end) 2; hightlighting(end) -2];
+patch('Faces',number_faces,'Vertices',vertices,'FaceColor',c5,'FaceAlpha',.2, 'Marker','.');
 %% Data generation
-error1_plot = line(t,qe(1,:));
+error1_plot = line(t(1:length(qe)),qe(1,:));
 set(error1_plot, 'LineStyle', '-', 'Color', c3, 'LineWidth', lw);
-error2_plot = line(t,qe(2,:));
+error2_plot = line(t(1:length(qe)),qe(2,:));
 set(error2_plot, 'LineStyle', '-', 'Color', c4, 'LineWidth', lw);
-
-% fig1_comps.p1 = ul_plot;
+text(20,1,'$\textrm{Perturbacion Extra}$','interpreter','latex','fontsize',12);
 %% Title of the image
 %hTitle_1 = title({'$\textrm{(c)}$'},'fontsize',14,'interpreter','latex','Color',C18);
 %xlabel('$\textrm{Time}[s]$','fontsize',10,'interpreter','latex','Color',C18);
@@ -269,13 +278,14 @@ ax_4.YMinorGrid = 'on';
 %ax_1.MinorGridColor = '#8f8f8f';
 ax_4.MinorGridAlpha = 0.15;
 ax_4.LineWidth = 0.8;
+ax_4.XLim = [0 t(end-1)];
 
 %hold on;
 axes('Position',[0.1 0.07 .72 .21]);
 %% Data generation
-control1_plot = line(t,u(1,:));
+control1_plot = line(t(1:length(u)),u(1,:));
 set(control1_plot, 'LineStyle', '-', 'Color', c4, 'LineWidth', lw);
-control2_plot = line(t,u(2,:));
+control2_plot = line(t(1:length(u)),u(2,:));
 set(control2_plot, 'LineStyle', '-', 'Color', c2, 'LineWidth', lw);
 
 % fig1_comps.p1 = ul_plot;
@@ -302,7 +312,7 @@ ax_5.YMinorGrid = 'on';
 %ax_1.MinorGridColor = '#8f8f8f';
 ax_5.MinorGridAlpha = 0.15;
 ax_5.LineWidth = 0.8;
-
+ax_5.XLim = [0 t(end-1)];
 
 set(gcf, 'Color', 'w'); % Sets axes background
 export_fig Results_learning.pdf -q101

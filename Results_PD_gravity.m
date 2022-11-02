@@ -70,7 +70,7 @@ fontsizeLegend = 11;
 fontsizeTicks = 11;
 fontsizeTitel = 11;
 sizeX = 1250; % size figure
-sizeY = 650; % size figure
+sizeY = 550; % size figure
 
 % color propreties
 c1 = [80, 81, 79]/255;

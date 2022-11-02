@@ -107,7 +107,7 @@ classdef controller < matlab.mixin.SetGet
         end
         
         function learning = learning_control(obj, xd)
-            xe = obj.error(xd);
+            xe = 10*obj.error(xd);
             % Learning algorithm
             l1_k = -obj.B*obj.l1_memories + obj.A*obj.e1_memories;
             l2_k = -obj.B*obj.l2_memories + obj.A*obj.e2_memories;
@@ -124,6 +124,7 @@ classdef controller < matlab.mixin.SetGet
         
         function update_l_memories(obj, l)
             for k = length(obj.l1_memories):-1:2
+                
                 obj.l1_memories(k) = obj.l1_memories(k-1);
                 obj.l2_memories(k) = obj.l2_memories(k-1);
             end
@@ -133,6 +134,7 @@ classdef controller < matlab.mixin.SetGet
         
         function update_e_memories(obj,xe)
             for k = length(obj.e1_memories):-1:2
+                
                obj.e1_memories(k) = obj.e1_memories(k-1); 
                obj.e2_memories(k) = obj.e2_memories(k-1);
             end

@@ -39,7 +39,7 @@ robot = manipulator_system(L1, L2, constans, q(:,1));
 
 
 % Desired angles of the system
-qd = [90*pi/180*ones(1, length(t));...
+qd = [180*pi/180*ones(1, length(t));...
        0*pi/180*ones(1, length(t))];
    
 qdp = [0*pi/180*ones(1, length(t));...
@@ -49,7 +49,7 @@ qdpp = [0*pi/180*ones(1, length(t));...
         0*pi/180*ones(1, length(t))];
 
 % Control gains
-kp = 20;
+kp = 30;
 wn = sqrt(kp);
 kv = 4*1*wn;
 

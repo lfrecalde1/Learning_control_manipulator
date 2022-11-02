@@ -25,7 +25,7 @@ A = tf([1], [1 kv kp])
 S = tf([0 0 1], [0 1 0])
 
 % Operator contraction
-aux = S*P*A
+aux = P*A
 
 % PD behavior
 A_d = c2d(A, t_s)

@@ -47,7 +47,7 @@ xd22 =  l2*sin(qd(1, aux_time_2)+qd(2, aux_time_2)) + l1*sin(qd(1, aux_time_2));
 yd22 = -l2*cos(qd(1, aux_time_2)+qd(2, aux_time_2)) - l1*cos(qd(1, aux_time_2));
 
 % Real values t =10
-aux_time_3 = (t >= 10) & (t<10.005);
+aux_time_3 = (t >= 30) & (t<30.005);
 
 x31 = l1*sin(q(1,aux_time_3));
 y31 = -l1*cos(q(1,aux_time_3));
@@ -70,7 +70,7 @@ fontsizeLegend = 11;
 fontsizeTicks = 11;
 fontsizeTitel = 11;
 sizeX = 1250; % size figure
-sizeY = 650; % size figure
+sizeY = 550; % size figure
 
 % color propreties
 c1 = [80, 81, 79]/255;
@@ -212,7 +212,7 @@ set(l_2_real_t_60, 'LineStyle', '-', 'Color', c3, 'LineWidth', lw*1.5)
 
 
 %% Title of the image
-hTitle_ = title({'$t = 10[s]$'},'fontsize',14,'interpreter','latex','Color',C18);
+hTitle_ = title({'$t = 30[s]$'},'fontsize',14,'interpreter','latex','Color',C18);
 hXLabel_3 = xlabel('$x[m]$','fontsize',10,'interpreter','latex', 'Color',C18);
 %hYLabel_3 = ylabel('$y[m]$','fontsize',10,'interpreter','latex', 'Color',C18);
 
@@ -306,4 +306,4 @@ ax_5.LineWidth = 0.8;
 
 
 set(gcf, 'Color', 'w'); % Sets axes background
-export_fig Results_PD.pdf -q101
+export_fig Results_PD_90.pdf -q101
